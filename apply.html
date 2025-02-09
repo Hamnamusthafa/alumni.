@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for a Job</title>
+    <link rel="stylesheet" href="apply.css">
+</head>
+<body>
+    <div class="application-container">
+        <h2>Job Application Form</h2>
+        <form action="submit_application.php" method="POST" enctype="multipart/form-data">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="position">Select Job Position:</label>
+            <select id="position" name="position" required>
+                <option value="">-- Select a Job --</option>
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Data Analyst">Data Analyst</option>
+                <option value="Marketing Manager">Marketing Manager</option>
+                <option value="HR Executive">HR Executive</option>
+                <option value="UI/UX Designer">UI/UX Designer</option>
+                <option value="AI Researcher">AI Researcher</option>
+            </select>
+
+            <label for="resume">Upload Resume (PDF only):</label>
+            <input type="file" id="resume" name="resume" accept=".pdf" required>
+
+            <label for="cover-letter">Cover Letter:</label>
+            <textarea id="cover-letter" name="cover_letter" rows="4" placeholder="Write a short cover letter..." required></textarea>
+
+            <button type="submit">Submit Application</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - College Alumni Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d7cdf1;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            text-align: center;
+        }
+        h2 {
+            color: #004080;
+            margin-bottom: 20px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .profile-pic {
+    width: 80px;
+    height: 80px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    border: 2px solid #004080;
+    cursor: pointer;
+    display: block;
+}
+
+        .profile-pic-label {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+        .profile-header:hover .profile-pic-label {
+            display: block;
+        }
+        .user-info {
+            text-align: left;
+        }
+        .user-info h3, .user-info p {
+            margin: 0;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 14px;
+            background: #004080;
+            color: white;
+            border: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button:hover {
+            background: #002d5a;
+        }
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Profile Page</h2>
+        <div class="profile-header">
+            <label for="profilePic">
+                <img src="pro.jpg" alt="Profile Picture" class="profile-pic" id="profilePreview">
+                <span class="profile-pic-label">Change Photo</span>
+            </label>
+            <div class="user-info">
+                <h3 id="userName"></h3>
+                <p id="userBatch"></p>
+            </div>
+        </div>
+        
+        <form action="profile_update.php" method="post" enctype="multipart/form-data">
+            <input type="file" id="profilePic" name="profilePic" accept="image/*" onchange="previewImage(event)">
+            
+            <div class="form-group">
+                <label for="skills">Skills:</label>
+                <input type="text" id="skills" name="skills" placeholder="Add your skills" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="achievements">Achievements:</label>
+                <textarea id="achievements" name="achievements" rows="3" placeholder="Add your achievements" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" placeholder="Tell us about yourself" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="job">Post Job Opportunity:</label>
+                <textarea id="job" name="job" rows="3" placeholder="Share job opportunities here"></textarea>
+            </div>
+            
+            <button type="submit">Update Profile</button>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('profilePreview');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Fetch user details from session via AJAX
+        fetch("get_user_details.php")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('userName').textContent = data.name;
+                document.getElementById('userBatch').textContent = "Batch: " + data.batch;
+            })
+            .catch(error => console.log("Error fetching user details:", error));
+    </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+      <script src="pro.js"></script>
+</body>
+</html>
