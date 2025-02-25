@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Alumni Portal - Home</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homestyle.css') }}">
+
+</head>
+<body>
+    <div >
+        
+        <img  class="imma" src="{{ url_for('static', filename='images/COET-hd_blue2.png') }}" >
+
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#jobs">Jobs</a></li>
+            <li><a href="#internships">Internships</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            <li><a href="{{ url_for('about') }}">About Us</a></li>
+
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Signin</a></li>
+
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+
+        </ul>
+    </nav>
+    <div >
+        
+        <img class="colle" src="{{ url_for('static', filename='images/image/coll.jpg') }}" alt="College Image">
+
+    </div>
+    <div class="content">
+        <div class="events-section" id="events">
+            <h3>Events</h3>
+            <div class="card">
+            
+                <img src="{{ url_for('static', filename='images/download event.jpg') }}" alt="Annual Alumni Meet">
+
+                <h4>Annual Alumni Meet</h4>
+                <p>Connect with past students and relive your memories.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+            <div class="card">
+                
+                <img src="{{ url_for('static', filename='images/download events2.jpg') }}" alt="Career Guidance Webinar">
+
+                <h4>Career Guidance Webinar</h4>
+                <p>Learn from industry experts and plan your future.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+            <div class="card">
+                
+                <img src="{{ url_for('static', filename='images/download 3.jpg') }}" alt="Networking Night">
+
+                <h4>Networking Night</h4>
+                <p>Expand your professional connections with like-minded people.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+
+            </div>
+            <div class="card">
+                
+                <img src="{{ url_for('static', filename='images/download 4.jpg') }}" alt="Workshops And Seminars">
+
+                <h4>Workshops & Seminars</h4>
+                <p>Stay updated with the latest trends and skills.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+
+            </div>
+        </div>
+        
+        <div class="section" id="jobs">
+            <h3>Jobs</h3>
+            <div  class="card">
+                
+                <img src="{{ url_for('static', filename='images/download job.jpg') }}">
+
+                <h4>Software Engineer</h4><p>TechCorp.</p>
+
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+
+            </div>
+            <div class="card">
+            
+                <img src="{{ url_for('static', filename='images/download job 2.jpg') }}">
+
+                <h4>Marketing Manager</h4><p>InnovateX.</p>
+<a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+            <div class="card">
+                
+                <img src="{{ url_for('static', filename='images/download job 3.jpg') }}">
+
+                <h4>Data Analyst</h4><p>FinServe.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+            <div class="card">
+                
+                <img src="{{ url_for('static', filename='images/premium_photo-1661598213264-9b708f59d793 4.avif') }}">
+
+                <h4>HR Executive</h4><p>PeopleFirst.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+        </div>
+
+        <div class="section" id="internships">
+            <h3>Internships</h3>
+            <div class="card">
+            
+                <img src="{{ url_for('static', filename='images/int1.jpg') }}">
+
+                <h4>Summer Internship</h4><p>XYZ Tech.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+            <div class="card">
+            
+                <img src="{{ url_for('static', filename='images/int2.jpg') }}">
+
+                <h4>AI & ML Research</h4><p>AI Lab.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='images/int3.jpg') }}">
+
+                <h4>Business Development</h4><p>StartUp Hub.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+            <div class="card">
+                
+                <img src="{{ url_for('static', filename='images/int4.jpg') }}">
+
+                <h4>Design Internship</h4><p>Creative Minds.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+        </div>
+
+        <div class="section" id="mentorship">
+            <h3>Mentorship</h3>
+            <div class="card">
+                
+                <img src="{{ url_for('static', filename='images/ment1.jpg') }}">
+
+                <h4>Industry Mentor</h4><p>Find a mentor.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+            <div class="card">
+                
+                <img src="{{ url_for('static', filename='images/me2.jpg') }}">
+
+                <h4>Career Coaching</h4><p>Join coaching sessions.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+            <div class="card">
+            
+                <img src="{{ url_for('static', filename='images/me3.jpg') }}">
+
+                <h4>Resume Workshop</h4><p>Improve your resume.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+            <div class="card">
+            
+                <img src="{{ url_for('static', filename='images/me4.jpg') }}">
+
+                <h4>Interview Tips</h4><p>Get interview guidance.</p>
+                <a href="apply.html" class="apply-btn">APPLY</a>
+
+            </div>
+        </div>
+
+        <div class="section" id="networking">
+            <h3>Networking</h3>
+            <div class="card">
+                
+                <img src="{{ url_for('static', filename='images/net1.jpg') }}">
+
+                <h4>Social Groups</h4><p>Join alumni groups.</p>                <a href="apply.html" class="apply-btn">APPLY</a>
+                
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='images/net2.jpg') }}">
+
+                <h4>Virtual Events</h4><p>Attend networking events.</p>                <a href="apply.html" class="apply-btn">APPLY</a>
+            </div>
+            <div class="card">
+            
+                <img src="{{ url_for('static', filename='images/net3.jpg') }}">
+
+                <h4>Professional Connect</h4><p>Connect with pros.</p>                <a href="apply.html" class="apply-btn">APPLY</a>
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='images/net4.jpg') }}">
+
+                <h4>Job Referrals</h4><p>Expand job search.</p>                <a href="apply.html" class="apply-btn">APPLY</a>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <h3>College Of Engineering</h3>
+                <p>Eranholi (PO), Thalassery,<br>
+                   Kannur-670 107, Kerala, India.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Events</a>
+                <a href="#">Jobs</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 College Alumni Portal | All Rights Reserved
+        </div>
+    </footer>
+</body>
+</html>

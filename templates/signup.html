@@ -71,9 +71,38 @@
             
             <button type="submit">Register</button>
         </form>
-        <p>Already have an account? <a href="index.html" style="color: green;">Login</a></p>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+        <p>Already have an account? <a href="login.html" style="color: green;">Login</a></p>
         <script src="reg31.js"></script>
+
+        <script>
+            async function registerUser(event) {
+                event.preventDefault();  // Prevents the form from reloading the page
+            
+                const email = document.getElementById("email").value;
+                
+                const response = await fetch("/signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({ email })
+                });
+            
+                const result = await response.json();
+            
+                if (response.ok) {
+                    alert(result.message);  // Show success message
+                    window.location.href = "/otp-verification";  // Redirect to OTP page
+                } else {
+                    alert(result.error);  // Show error message
+                }
+            }
+            </script>
+            
+        <!--   <form onsubmit="registerUser(event)">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Register</button>
+            </form>-->
+
+
     </div>
 </body>
 </html>

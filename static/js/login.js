@@ -42,7 +42,7 @@ const getElementVal = (id) =>{
 
 
 */
-
+/*
 const firebaseConfig = {
     apiKey: "AIzaSyBZhR1Jn2KVMqM_gZoyWFLkm3kJ2CIQV-E",
     authDomain: "alumniform-d45ca.firebaseapp.com",
@@ -91,7 +91,7 @@ const saveMessages = (name, password) => {
 const getElementVal = (id) => {
     return document.getElementById(id).value;
 };
-
+*/
 
 
 
