@@ -28,6 +28,9 @@ def contact():
 def about():
     return render_template('about.html')
 
+
+
+
 # ✅ Login Route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -58,6 +61,7 @@ def sign_up():
     return render_template('signup.html')
 
 
+
 @app.route('/signup', methods=['POST'])
 def signup():
     email = request.form.get('email')
@@ -66,37 +70,24 @@ def signup():
 
     print(f"📩 Received signup request for email: {email}")
 
-    # ✅ Check if email exists in the database
     user = User.query.filter_by(email=email).first()
 
     if not user:
-        print("❌ Email not found in database.")
-        return render_template('signup.html', error="Email not found. Contact admin to register.")
+        return jsonify({"error": "Email not found. Contact admin to register."}), 400
 
-    # ✅ Generate OTP
     otp = str(random.randint(100000, 999999))
-    print(f"🔢 Generated OTP: {otp} for {email}")
-
-    # ✅ Store OTP in the database temporarily
     user.otp = otp
     db.session.commit()
 
-    # ✅ Send OTP via Email
     try:
         send_otp_email(email, otp)
-        print("✅ OTP email sent successfully!")
-
-        # ✅ Store user details temporarily in session
         session['pending_signup'] = {
             "email": email,
             "username": username,
             "password": password
         }
-
-        return redirect(url_for('verify_otp'))  # Redirect to OTP verification page
-
+        return jsonify({"message": "OTP sent. Please enter the OTP to verify your account."}), 200
     except Exception as e:
-        print(f"❌ Email sending failed: {str(e)}")
         return jsonify({"error": f"Failed to send email: {str(e)}"}), 500
 
 
@@ -105,38 +96,28 @@ def signup():
 # ✅ Verify OTP Route
 
 from werkzeug.security import generate_password_hash
-
-@app.route('/verify-otp', methods=['GET', 'POST'])
+@app.route('/verify-otp', methods=['POST'])
 def verify_otp():
-    if request.method == 'GET':
-        return render_template('verify_otp.html')
-
     email = request.form['email']
     entered_otp = request.form['otp']
-    print(f"🔍 Verifying OTP for {email}: {entered_otp}")
-
+    
     user = User.query.filter_by(email=email).first()
 
     if user and user.otp == entered_otp:
-        print("✅ OTP Verified Successfully!")
-
-        # ✅ Retrieve username and password from session
         signup_data = session.pop('pending_signup', None)
         if not signup_data:
             return jsonify({"error": "Session expired. Please sign up again."}), 400
 
-        # ✅ Store username and password in the database
         user.username = signup_data["username"]
         user.password = generate_password_hash(signup_data["password"])
-        user.otp = None  # ✅ Clear OTP
-
+        user.otp = None
         db.session.commit()
-        print("✅ User registration completed!")
 
-        return jsonify({"message": "OTP verified. Redirecting to home page!"})
+        return jsonify({"message": "OTP verified. Redirecting to home page!"}), 200
     else:
-        print("❌ Invalid OTP")
         return jsonify({"error": "Invalid OTP"}), 400
+
+
 
 
 # ✅ Logout Route

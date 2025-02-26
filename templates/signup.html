@@ -122,6 +122,89 @@
             </form>-->
            
 
+            <script>
+                document.getElementById("signupForm").addEventListener("submit", async function(event) {
+                    event.preventDefault(); // Prevents the page from reloading
+            
+                    const formData = new FormData(this);
+                    
+                    try {
+                        const response = await fetch("{{ url_for('signup') }}", {
+                            method: "POST",
+                            body: new URLSearchParams(formData)
+                        });
+            
+                        // Check if response is OK and in JSON format
+                        if (!response.ok) {
+                            throw new Error("Server error. Please try again.");
+                        }
+            
+                        let result;
+                        try {
+                            result = await response.json();  // Ensure the response is JSON
+                        } catch (jsonError) {
+                            throw new Error("Invalid response from the server.");
+                        }
+            
+                        // Get alert box element (if it exists)
+                        const alertBox = document.getElementById("alertMessage");
+                        if (alertBox) {
+                            alertBox.textContent = result.message || result.error || "Unexpected response.";
+                            alertBox.className = response.ok ? "alert success" : "alert error";
+                            alertBox.style.display = "block";
+                        }
+            
+                        // Show OTP prompt only if signup was successful
+                        if (response.ok && result.message.includes("OTP sent")) {
+                            const otp = prompt("Enter the OTP sent to your email:");
+                            if (otp) {
+                                verifyOTP(formData.get("email"), otp);
+                            }
+                        }
+            
+                    } catch (error) {
+                        console.error("Signup Error:", error);
+                        alert(error.message);
+                    }
+                });
+            
+                async function verifyOTP(email, otp) {
+                    try {
+                        const response = await fetch("{{ url_for('verify_otp') }}", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            body: new URLSearchParams({ email, otp })
+                        });
+            
+                        // Check if response is OK and JSON
+                        if (!response.ok) {
+                            throw new Error("OTP verification failed.");
+                        }
+            
+                        let result;
+                        try {
+                            result = await response.json();
+                        } catch (jsonError) {
+                            throw new Error("Invalid OTP response.");
+                        }
+            
+                        if (response.ok) {
+                            alert(result.message);
+                            window.location.href = "{{ url_for('home') }}";  // Redirect to home page
+                        } else {
+                            alert(result.error);
+                        }
+                    } catch (error) {
+                        console.error("OTP Verification Error:", error);
+                        alert("Failed to verify OTP. Please try again.");
+                    }
+                }
+            </script>
+            
+
+
+
+
     </div>
 </body>
 </html>
