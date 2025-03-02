@@ -82,7 +82,7 @@
             <button type="submit">Register</button>
         </form>
     
-        <p>Already have an account? <a href="login.html" style="color: green;">Login</a></p>
+        <p>Already have an account? <a href=" {{ url_for('login') }}" style="color: green;">Login</a></p>
     
 
 
@@ -120,51 +120,49 @@
                 <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 <button type="submit">Register</button>
             </form>-->
-           
+
+
 
             <script>
                 document.getElementById("signupForm").addEventListener("submit", async function(event) {
                     event.preventDefault(); // Prevents the page from reloading
             
                     const formData = new FormData(this);
-                    
+            
                     try {
                         const response = await fetch("{{ url_for('signup') }}", {
                             method: "POST",
                             body: new URLSearchParams(formData)
                         });
             
-                        // Check if response is OK and in JSON format
-                        if (!response.ok) {
-                            throw new Error("Server error. Please try again.");
-                        }
-            
                         let result;
                         try {
-                            result = await response.json();  // Ensure the response is JSON
+                            result = await response.json();  // Ensure response is in JSON format
                         } catch (jsonError) {
-                            throw new Error("Invalid response from the server.");
+                            throw new Error("Unexpected response from the server.");
                         }
             
-                        // Get alert box element (if it exists)
-                        const alertBox = document.getElementById("alertMessage");
-                        if (alertBox) {
-                            alertBox.textContent = result.message || result.error || "Unexpected response.";
-                            alertBox.className = response.ok ? "alert success" : "alert error";
-                            alertBox.style.display = "block";
+                        // If the response contains an error message, show an alert
+                        if (!response.ok) {
+                            alert(result.error || "Signup failed. Please try again.");
+                            return;
                         }
             
-                        // Show OTP prompt only if signup was successful
-                        if (response.ok && result.message.includes("OTP sent")) {
+                        // If signup is successful and OTP is sent
+                        if (result.message.includes("OTP sent")) {
+                            alert(result.message); // Show confirmation message
+            
                             const otp = prompt("Enter the OTP sent to your email:");
                             if (otp) {
                                 verifyOTP(formData.get("email"), otp);
+                            } else {
+                                alert("OTP verification cancelled.");
                             }
                         }
             
                     } catch (error) {
                         console.error("Signup Error:", error);
-                        alert(error.message);
+                        alert(error.message || "An error occurred. Please try again.");
                     }
                 });
             
@@ -176,27 +174,26 @@
                             body: new URLSearchParams({ email, otp })
                         });
             
-                        // Check if response is OK and JSON
-                        if (!response.ok) {
-                            throw new Error("OTP verification failed.");
-                        }
-            
                         let result;
                         try {
                             result = await response.json();
                         } catch (jsonError) {
-                            throw new Error("Invalid OTP response.");
+                            throw new Error("Unexpected response from OTP verification.");
                         }
             
-                        if (response.ok) {
-                            alert(result.message);
-                            window.location.href = "{{ url_for('home') }}";  // Redirect to home page
-                        } else {
-                            alert(result.error);
+                        // Show error if OTP verification fails
+                        if (!response.ok) {
+                            alert(result.error || "Invalid OTP. Please try again.");
+                            return;
                         }
+            
+                        // If OTP verification is successful, redirect to home page
+                        alert(result.message);
+                        window.location.href = "{{ url_for('index') }}";
+            
                     } catch (error) {
                         console.error("OTP Verification Error:", error);
-                        alert("Failed to verify OTP. Please try again.");
+                        alert(error.message || "OTP verification failed. Please try again.");
                     }
                 }
             </script>

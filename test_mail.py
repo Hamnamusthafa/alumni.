@@ -4,7 +4,7 @@ from models import User
 
 # ✅ Set up an application context
 with app.app_context():
-    test_email = 'hamnat211@gmail.com'  # Replace with the email you want to test
+    test_email = 'ha@gmail.com'  # Replace with the email you want to test
 
     # ✅ Check if the email exists in the database
     user = User.query.filter_by(email=test_email).first()
