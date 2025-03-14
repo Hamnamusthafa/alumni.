@@ -4,23 +4,58 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background:url('slider.png') no-repeat center center fixed;
+   /* background:url('immo.jpg') no-repeat center center fixed;
 
 
     margin: 0;
+
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;*/
 }
 
 .ff{
-    position: absolute;
+    /*position: absolute;
     z-index: -1;
     left: 0;
     top: 0;
+    height: 100vh;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    
     
 }
+.loogu{
+    display: flex;
+}
+.loogu1{
+   /* width: 90px;
+    height: 90px;
+    padding-bottom: 6px;*/
+
+        position: absolute;
+        top: 10px;  /* Adjust as needed */
+        left: 10px; /* Adjust as needed */
+        width: 100px; /* Adjust size as needed */
+        height: auto;
+        padding-left: 50px;
+        padding-top: 50px;
+    }
+    
+
 
 .ff img{
-  height: 100%;
+  /*height: 100%;
+  width: 1600px;*/
+  width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire background */
   
 }
 .container {
@@ -38,11 +73,12 @@ h1 {
 }
 
 .login-container {
-    background: white;
+    background: whitesmoke;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+
 }
 
 h2 {
@@ -88,10 +124,65 @@ button:hover {
 }
 
 .signup-text a {
-    color: #007bff;
+    color: darkgreen;
     text-decoration: none;
 }
 
 .signup-text a:hover {
     text-decoration: underline;
+}
+/*
+.battu{
+    text-align: center;
+    margin-left: 8px;
+    background-color: rgb(33, 104, 88);
+
+}
+.battu :hover{
+    background-color: darkgreen;
+
+}
+*/
+.battu {
+    background-color: rgb(33, 104, 88); /* Default button color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 5px;
+    width: 270px;
+    transition: background-color 0.3s ease;
+}
+
+.battu:hover {
+    background-color: darkgreen; /* Change color to green on hover */
+}
+input, select, button {
+    display: block;
+    width: 80%; /* Reduce the width (adjust as needed) */
+    margin: 10px auto; /* Center the input fields */
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 5px;
+}
+
+
+.input-group {
+    width: 100%; /* Make sure input fields take full width of container */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers input fields */
+    margin-bottom: 10px;
+}
+
+.input-group label {
+    text-align: left;
+    width: 80%; /* Ensures label is aligned with input */
+}
+
+.input-group input {
+    width: 80%; /* Reduce width to keep it centered */
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 5px;
 }

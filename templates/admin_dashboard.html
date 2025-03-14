@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <h2>Post a Job</h2>
+    <form action="{{ url_for('post_job') }}" method="POST">
+        <input type="text" name="title" placeholder="Job Title" required>
+        <textarea name="description" placeholder="Job Description" required></textarea>
+        <button type="submit">Post Job</button>
+    </form>
+
+    <h2>Registered Users</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Role</th>
+            <th>Academic Year</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.role }}</td>
+            <td>{{ user.academic_year }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Job Listings</h2>
+    {% for job in jobs %}
+        <p><strong>{{ job.title }}</strong>: {{ job.description }}</p>
+    {% endfor %}
+
+    <br>
+    <a href="{{ url_for('admin_logout') }}">Logout</a>
+</body>
+</html>

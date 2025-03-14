@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup - College Alumni Portal</title>
-    <link rel="stylesheet" href="styles.css"> <!-- External CSS File -->
+    
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/reg31.js') }}"></script>
+    
+
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,6 +23,22 @@
             height: 100vh;
             margin: 0;
         }
+        
+.ff{
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    
+    
+}
+
+.ff img{
+  height: 100%;
+  width: 1600px;
+  
+}
         .signup-container {
             background-color: white;
             color: rgb(22, 60, 57);
@@ -42,39 +65,112 @@
         button:hover {
             background-color: darkgreen;
         }
+        .loogu{
+    display: flex;
+}
+.loogu1{
+    /*width: 90px;
+    height: 90px;*/
+
+    position: absolute;
+        top: 10px;  /* Adjust as needed */
+        left: 10px; /* Adjust as needed */
+        width: 100px; /* Adjust size as needed */
+        height: auto;
+        padding-top: 50px;
+        padding-left: 50px;
+}
+
+
+.signup-container{
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 400px;
+
+
+
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    
+}
+
+
+input, select, button {
+    display: block;
+    width: 80%; /* Reduce the width (adjust as needed) */
+    margin: 10px auto; /* Center the input fields */
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 5px;
+}
+
+       
+
     </style>
 </head>
 <body>
+    
+    <div class="ff">
+        <img src="{{ url_for('static', filename='images/sii.jpg') }}" alt="College Logo">
+    </div>
+    
     <div class="signup-container">
+        <div class="loogu">
+            <img  class="loogu1"src="{{ url_for('static', filename='images/allu.png') }}" alt="Alumni Portal Logo">
+        </div>
+        <div class="container">
         <h2>Signup</h2>
-        <form id="signupForm">
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" required>
-            
+    
+        <form id="signupForm" action="{{ url_for('signup') }}" method="POST">  <!-- Added action and method -->
+            <label for="name">Username:</label>
+            <input type="text" id="name" name="username" required>  <!-- Change name="name" to name="username" -->
+        
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            
+        
             <label for="phone">Phone Number:</label>
             <input type="text" id="phone" name="phone" required>
-            
+        
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
-            
+        
             <label for="role">Role:</label>
             <select id="role" name="role" required>
                 <option value="student">Student</option>
                 <option value="alumni">Alumni</option>
             </select>
-            
+        
             <label for="academicYear">Academic Year:</label>
             <input type="text" id="academicYear" name="academicYear" required>
-            
+        
             <button type="submit">Register</button>
         </form>
-        <p>Already have an account? <a href="login.html" style="color: green;">Login</a></p>
-        <script src="reg31.js"></script>
+    
+        <p>Already have an account? <a href=" {{ url_for('login') }}" style="color: green;">Login</a></p>
+    
 
-        <script>
+
+        {% if error %}
+             <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+       <!-- <script src="{{ url_for('static', filename='js/reg31.js') }}"></script>
+
+       <script>
             async function registerUser(event) {
                 event.preventDefault();  // Prevents the form from reloading the page
             
@@ -95,14 +191,95 @@
                     alert(result.error);  // Show error message
                 }
             }
+
             </script>
-            
+        -->
         <!--   <form onsubmit="registerUser(event)">
                 <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 <button type="submit">Register</button>
             </form>-->
 
 
+
+            <script>
+                document.getElementById("signupForm").addEventListener("submit", async function(event) {
+                    event.preventDefault(); // Prevents the page from reloading
+            
+                    const formData = new FormData(this);
+            
+                    try {
+                        const response = await fetch("{{ url_for('signup') }}", {
+                            method: "POST",
+                            body: new URLSearchParams(formData)
+                        });
+            
+                        let result;
+                        try {
+                            result = await response.json();  // Ensure response is in JSON format
+                        } catch (jsonError) {
+                            throw new Error("Unexpected response from the server.");
+                        }
+            
+                        // If the response contains an error message, show an alert
+                        if (!response.ok) {
+                            alert(result.error || "Signup failed. Please try again.");
+                            return;
+                        }
+            
+                        // If signup is successful and OTP is sent
+                        if (result.message.includes("OTP sent")) {
+                            alert(result.message); // Show confirmation message
+            
+                            const otp = prompt("Enter the OTP sent to your email:");
+                            if (otp) {
+                                verifyOTP(formData.get("email"), otp);
+                            } else {
+                                alert("OTP verification cancelled.");
+                            }
+                        }
+            
+                    } catch (error) {
+                        console.error("Signup Error:", error);
+                        alert(error.message || "An error occurred. Please try again.");
+                    }
+                });
+            
+                async function verifyOTP(email, otp) {
+                    try {
+                        const response = await fetch("{{ url_for('verify_otp') }}", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            body: new URLSearchParams({ email, otp })
+                        });
+            
+                        let result;
+                        try {
+                            result = await response.json();
+                        } catch (jsonError) {
+                            throw new Error("Unexpected response from OTP verification.");
+                        }
+            
+                        // Show error if OTP verification fails
+                        if (!response.ok) {
+                            alert(result.error || "Invalid OTP. Please try again.");
+                            return;
+                        }
+            
+                        // If OTP verification is successful, redirect to home page
+                        alert(result.message);
+                        window.location.href = "{{ url_for('home') }}";
+            
+                    } catch (error) {
+                        console.error("OTP Verification Error:", error);
+                        alert(error.message || "OTP verification failed. Please try again.");
+                    }
+                }
+            </script>
+            
+
+
+
+        </div>
     </div>
 </body>
 </html>

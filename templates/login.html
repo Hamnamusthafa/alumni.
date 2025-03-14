@@ -6,20 +6,31 @@
     <title>College Alumni Portal - Login</title>
     
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
-
-
 </head>
 <body>
+    <!--<div class="ff">
+        <img src="{{ url_for('static', filename='images/slider.png') }}" alt="College Logo">
+    </div>-->
     <div class="ff">
-    
-    <img  src="{{ url_for('static', filename='images/slider.png') }}" alt="College Logo">
-
+        <img src="{{ url_for('static', filename='images/sii.jpg') }}" alt="College Logo">
     </div>
+  
+    
     <div class="container">
-        <h1>College Alumni Portal</h1>
+        <div class="loogu">
+        <img  class="loogu1"src="{{ url_for('static', filename='images/allu.png') }}" alt="Alumni Portal Logo">
+
+        <!--<h1>College Alumni Portal</h1>-->
+        </div>
         <div class="login-container">
             <h2>Login</h2>
-            <form action="#" id="alumniform">
+            
+            <!-- Display error message if login fails -->
+            {% if error %}
+                <p class="error-message" style="color: red;">{{ error }}</p>
+            {% endif %}
+            
+            <form action="{{ url_for('login') }}" method="POST">
                 <div class="input-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" required>
@@ -28,11 +39,10 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <button type="submit">Login</button>
+                <button class="battu" type="submit">Login</button>
             </form>
-            <p class="signup-text">Don't have an account? <a href="reg31.html">Sign up</a></p>
-           <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>-->
-            <!--<script src="index.js"></script>-->
+
+            <p class="signup-text">Don't have an account? <a href="{{ url_for('signup_page') }}">Sign up</a></p>
         </div>
     </div>
 </body>
