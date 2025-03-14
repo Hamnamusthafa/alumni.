@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from mail_config import init_mail, send_otp_email
+<<<<<<< HEAD
 from models import db, User, JobPost  # ✅ Import JobPost
 
 import random
@@ -9,12 +10,18 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from admin_routes import admin_bp  
 
 
+=======
+from models import db, User
+import random
+from werkzeug.security import check_password_hash
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
 
 db.init_app(app)
 init_mail(app)  # ✅ Initialize Flask-Mail here
+<<<<<<< HEAD
 app.register_blueprint(admin_bp)
 
 # ✅ Home Page
@@ -27,6 +34,13 @@ def home():
     logged_in = 'user_id' in session  # Check if user is logged in
     jobs = JobPost.query.order_by(JobPost.post_date.desc()).all()
     return render_template('home.html', logged_in=logged_in, jobs=jobs)
+=======
+
+# ✅ Home Page
+@app.route('/')
+def index():
+    return render_template('index.html')
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
 
 @app.route('/profile')
 def profile():
@@ -53,6 +67,11 @@ def about():
 def login():
     if request.method == 'POST':
         username = request.form['username']
+<<<<<<< HEAD
+=======
+        
+
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
 
         password = request.form['password']
         print(f"🔍 Login attempt for: {username}")
@@ -62,7 +81,11 @@ def login():
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
             print("✅ Login successful!")
+<<<<<<< HEAD
             return redirect(url_for('home'))
+=======
+            return redirect(url_for('index'))
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
         else:
             print("❌ Invalid username or password")
             return render_template('login.html', error="Invalid username or password")
@@ -72,7 +95,11 @@ def login():
 # ✅ Signup Route (Handles   POST)
 
 @app.route('/signup')
+<<<<<<< HEAD
 def signup_page():
+=======
+def sign_up():
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
     return render_template('signup.html')
 
 
@@ -82,6 +109,7 @@ def signup():
     email = request.form.get('email')
     username = request.form.get('username')
     password = request.form.get('password')
+<<<<<<< HEAD
     role = request.form.get('role')  # Get role from signup form
 
     print(f"📩 Received signup request for email: {email}, role: {role}")
@@ -92,6 +120,15 @@ def signup():
     if not user:
         return jsonify({"error": "Email and role combination not found. Contact admin to register."}), 400
 
+=======
+
+    print(f"📩 Received signup request for email: {email}")
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user:
+        return jsonify({"error": "Email not found. Contact admin to register."}), 400
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
 
     otp = str(random.randint(100000, 999999))
     user.otp = otp
@@ -144,8 +181,11 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for('login'))
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
 # ✅ Run App
 if __name__ == '__main__':
     with app.app_context():

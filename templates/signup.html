@@ -65,6 +65,7 @@
         button:hover {
             background-color: darkgreen;
         }
+<<<<<<< HEAD
         .loogu{
     display: flex;
 }
@@ -118,6 +119,8 @@ input, select, button {
     border-radius: 5px;
 }
 
+=======
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
        
 
     </style>
@@ -134,7 +137,11 @@ input, select, button {
         </div>
         <div class="container">
         <h2>Signup</h2>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
         <form id="signupForm" action="{{ url_for('signup') }}" method="POST">  <!-- Added action and method -->
             <label for="name">Username:</label>
             <input type="text" id="name" name="username" required>  <!-- Change name="name" to name="username" -->
@@ -267,7 +274,11 @@ input, select, button {
             
                         // If OTP verification is successful, redirect to home page
                         alert(result.message);
+<<<<<<< HEAD
                         window.location.href = "{{ url_for('home') }}";
+=======
+                        window.location.href = "{{ url_for('index') }}";
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
             
                     } catch (error) {
                         console.error("OTP Verification Error:", error);
@@ -279,7 +290,11 @@ input, select, button {
 
 
 
+<<<<<<< HEAD
         </div>
+=======
+
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
     </div>
 </body>
 </html>

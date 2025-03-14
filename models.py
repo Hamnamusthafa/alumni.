@@ -4,12 +4,17 @@ db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+<<<<<<< HEAD
     username = db.Column(db.String(100), nullable=False)
+=======
+    username = db.Column(db.String(100), nullable=False, unique=True)  # ✅ Changed 'name' to 'username'
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
     email = db.Column(db.String(120), unique=True, nullable=False)
     phone = db.Column(db.String(20), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=False)  # ✅ Password stored only after OTP verification
     role = db.Column(db.String(10), nullable=False)
     academic_year = db.Column(db.String(10), nullable=False)
+<<<<<<< HEAD
     otp = db.Column(db.String(6))  # OTP for verification
 
 
@@ -20,3 +25,6 @@ class JobPost(db.Model):
     posted_by = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_date = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp())
     last_date_to_apply = db.Column(db.Date, nullable=False)  # ✅ Added last date to apply
+=======
+    otp = db.Column(db.String(6), nullable=True)  # OTP is temporary
+>>>>>>> 973bbe277ebe69e4a919c6a5741100f195a2ee15
