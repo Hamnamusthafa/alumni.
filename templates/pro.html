@@ -220,7 +220,7 @@
         <li><a href="#events" class="restricted">Events</a></li>
         <li><a href="#jobs" class="restricted">Jobs</a></li>
         <li><a href="#internships" class="restricted">Internships</a></li>
-                <!--<li><a href="{{ url_for('') }}">Messages</a></li>-->
+                <li><a href="{{ url_for('') }}">Messages</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
                 <li><a href="{{ url_for('about') }}">About Us</a></li>
         
@@ -250,6 +250,7 @@
             <select id="skill-select" multiple="multiple"></select>
             <button class="update-btn" onclick="updateSkills()">Update Skills</button>
             <p id="skills-update-message"></p>
+
         </div>
     </div>
 
@@ -305,6 +306,37 @@
 
 
 <style>
+    .profile-card {
+    width: 80%; /* Adjust as needed */
+    max-width: 600px; /* Optional: Set a max width */
+    margin: auto; /* Center the container */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+    .skills-container {
+    width: 80%; /* Adjust as needed */
+    max-width: 600px; /* Optional: Set a max width */
+    margin: auto; /* Center the container */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+    .skills{
+        flex-direction: column;
+        justify-content: center;
+        justify-items: center;
+        margin-top: 90px;
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    }
 body{
     font-family: Arial, sans-serif;
     margin: 0;
@@ -312,7 +344,7 @@ body{
 
     color: #4E342E;
         background-color: rgb(205, 229, 229);
-
+   
 }
     ul {
         list-style-type: square;
@@ -486,6 +518,8 @@ border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
     
     
+
+
     </style>
 
 

@@ -3,184 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - College Alumni Portal</title>
+    <title>Alumni Profile - Alumni Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/alumniprofile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile_alu.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+</head>
+<body>
+
+    <!-- ✅ NAVBAR -->
+    <header class="navbar">
+        <div class="logo-container">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/allu.png') }}" alt="Alumni Portal Logo">
+            </a>
+            <div class="logo-text">Alumni Portal</div>
+        </div>
+        <nav>
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/allu.png') }}" alt="">
+        </div>
+            <ul>
+                <li><a href="{{ url_for('profile') }}" class="restricted">home</a></li>
+                <li><a href="{{ url_for('post_job') }}" class="post-job-btn">Post a Job</a></li>
+
+                <li><a href="#events" class="restricted">Events</a></li>
+                <li><a href="#jobs" class="restricted">Jobs</a></li>
+                <li><a href="#internships" class="restricted">Internships</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>            
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
     
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+            </ul>
+        </nav>
+    
+    </header>
+
+    <!-- ✅ PROFILE CONTAINER -->
+    <div class="profile-container">
+        <div class="profile-pic">
+            <img src="{{ url_for('static', filename='images/default_profile.png') }}" alt="Profile Picture">
+        </div>
+        <div class="profile-info">
+            <h2 id="profile-name">{{ user.full_name if user else 'N/A' }}</h2>
+            <p><strong>Email:</strong> <span id="profile-email">{{ user.email if user else 'N/A' }}</span></p>
+            <p><strong>Graduation Year:</strong> <span id="profile-year">{{ user.graduation_year if user else 'N/A' }}</span></p>
+            <p><strong>Skills:</strong> <span id="skills-display">{{ user.skills if user.skills else 'No skills added' }}</span></p>
+        </div>
+
+        <!-- ✅ MY POSTED EVENTS SECTION -->
+        <div class="events-container">
+            <h3>📅 My Posted Events</h3>
+            <div id="my-events-list" class="event-list"></div>
+        </div>
+
+        <!-- ✅ SKILLS SELECTION -->
+        <div class="skills-container">
+            <h3>🔹 Select Your Skills</h3>
+            <select id="skill-select" multiple="multiple"></select>
+            <button class="update-btn" onclick="updateSkills()">Update Skills</button>
+            <p id="skills-update-message"></p>
+        </div>
+    </div>
+
+    <!-- ✅ FOOTER -->
+
+    <footer class="footer">
+        <div class="footer-left">
+            <img src="{{ url_for('static', filename='images/allu.png') }}" alt=""  class="footer-logo">
+    
+            <p class="pp">One-stop portal for alumni of the National Institute of Technology, Patna, Bihar.</p>
+        </div>
+        
+        <div>
+            <h3>Useful Links</h3>
+            <ul>
+                <li><a href="#">NIT Patna</a></li>
+                <li><a href="#">NITP History</a></li>
+                <li><a href="#">Search Jobs</a></li>
+                <li><a href="#">Look for Internships</a></li>
+                <li><a href="#">Web Team</a></li>
+                <li><a href="#">Admin Portal</a></li>
+            </ul>
+        </div>
+    
+        <div>
+            <h3>Must Check</h3>
+            <ul>
+                <li><a href="#">Event Gallery</a></li>
+                <li><a href="#">Notable Alumni</a></li>
+                <li><a href="#">Upcoming Events</a></li>
+                <li><a href="#">Success Stories</a></li>
+                <li><a href="#">Experiences</a></li>
+            </ul>
+        </div>
+    
+        <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>NIT Patna, Ashok Rajpath, Patna, Bihar-800005, India</p>
+            <p>Ph: <a href="tel:+9106122371715">+91-0612 237 1715</a> / <a href="tel:+9106122372715">237 2715</a></p>
+            <p>Mail: <a href="mailto:alumni@nitp.ac.in">alumni@nitp.ac.in</a></p>
+        </div>
+    </footer>
+    
+    <div class="footer-bottom">
+        &copy; 2025 NITP, All Rights Reserved. Designed & Developed by <a href="#" style="color: #00aaff; text-decoration: none;">Electrical Engineers of NIT Patna.</a>
+    </div>
+    <!-- ✅ JAVASCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="{{ url_for('static', filename='js/profile_alu.js') }}"></script>
+
 
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #d7cdf1;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        body{
+            background-color: rgb(205, 229, 229);
+
         }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+.pp{
+    color: white;
+}
+
+
+nav {
+background-color: rgb(20, 9, 111);
+padding: 15px;
+text-align: center;
+padding-top: -90px;
+
+position: fixed; /* Fixes the navbar */
+top: 0; /* Sticks it to the top */
+left: 0;
+width: 100%; /* Full width */
+background: #7d6868; /* Background color */
+color: white;
+padding: 15px;
+text-align: center;
+z-index: 1000; /* Ensures it stays above other elements */
+
+display: flex;
+gap: 120px;
+}
+
+nav ul {
+list-style: none;
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: center;
+}
+
+nav ul li {
+margin: 0 15px;
+position: relative;
+}
+
+/* Basic styling for navbar links */
+nav ul li a {
+color: white;
+text-decoration: none;
+font-size: 18px;
+font-weight: bold;
+padding: 10px 15px;
+display: inline-block;
+transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+/* Hover Effect: Change Text Color & Background */
+nav ul li a:hover {
+color: #007bff;
+background-color: white;
+border-radius: 5px;
+}
+
+/* Hover Effect: Underline Animation */
+nav ul li a::after {
+content: "";
+position: absolute;
+left: 0;
+bottom: -5px;
+width: 100%;
+height: 3px;
+background-color: white;
+transform: scaleX(0);
+transition: transform 0.3s ease-in-out;
+}
+
+nav ul li a:hover::after {
+transform: scaleX(1);
+}
+.skills-container{
+    display: block;
+}
+.profile-container {
+    width: 50%; /* Adjust width as needed */
+    max-width: 700px; /* Optional: Limits max width */
+    margin: auto; /* Centers horizontally */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2), 
+                        -8px -8px 15px rgba(0, 0, 0, 0.2);
             text-align: center;
-        }
-        h2 {
-            color: #004080;
-            margin-bottom: 20px;
-        }
-        .profile-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .profile-pic {
-    width: 80px;
-    height: 80px;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    object-fit: cover;
-    overflow: hidden;
-    border: 2px solid #004080;
-    cursor: pointer;
+            transition: 0.3s;
+    /* Center vertically */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.update-btn{
+    margin: 10px auto; /* Centers it horizontally */
+margin-top: 90px;
+        background: #2c9feb;
+        background-image: -webkit-linear-gradient(top, #2c9feb, #010c12);
+        background-image: -moz-linear-gradient(top, #2c9feb, #010c12);
+        background-image: -ms-linear-gradient(top, #2c9feb, #010c12);
+        background-image: -o-linear-gradient(top, #2c9feb, #010c12);
+        background-image: linear-gradient(to bottom, #2c9feb, #010c12);
+        -webkit-border-radius: 28;
+        -moz-border-radius: 28;
+        border-radius: 28px;
+        font-family: Georgia;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 10px 20px 10px 20px;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .update-btn:hover {
+        background: #3cb0fd;
+        background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+        background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+        background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+        background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+        background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+        text-decoration: none;
+      }
+
+.footer {
+background-color: #0a0a0a;
+padding: 10px 10%;
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+flex-wrap: wrap;
+border-top: 1px solid rgba(255, 255, 255, 0.2);
+margin-top: 600px;
+}
+.footer-logo {
+max-width: 100px;
+}
+.footer-left {
+max-width: 300px;
+}
+.footer h3 {
+font-size: 18px;
+margin-bottom: 15px;
+color: #00aaff;
+border-left: 3px solid #00aaff;
+padding-left: 10px;
+}
+.footer ul {
+list-style: none;
+padding: 0;
+}
+.footer ul li {
+margin-bottom: 10px;
+}
+.footer ul li a {
+text-decoration: none;
+color: #fff;
+transition: color 0.3s;
+}
+.footer ul li a:hover {
+color: #00aaff;
+}
+.footer-contact p {
+margin: 5px 0;
+}
+.footer-contact a {
+color: #00aaff;
+text-decoration: none;
+font-weight: bold;
+}
+.footer-bottom {
+text-align: center;
+padding: 15px;
+background: black;
+font-size: 14px;
+border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.aboutu {
+    max-width: 100%; /* Ensures it doesn’t exceed the parent div */
+    height: auto; /* Maintains aspect ratio */
+    margin-left: 370px;
+  }
+  .aboutuu{
+    width: 290px;
+  }
+  
+
+.logo-container {
+    position: relative; /* Change to relative to avoid absolute stacking */
+    top: 10px; /* Adjust spacing as needed */
+    left: 20px; /* Adjust positioning */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.logo-container img {
+    width: 80px; /* Adjust size */
+    height: auto;
     display: block;
 }
 
-        .profile-pic-label {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 5px;
-            font-size: 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: none;
-        }
-        .profile-header:hover .profile-pic-label {
-            display: block;
-        }
-        .user-info {
-            text-align: left;
-        }
-        .user-info h3, .user-info p {
-            margin: 0;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        label {
-            font-weight: bold;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 14px;
-            background: #004080;
-            color: white;
-            border: none;
-            font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        button:hover {
-            background: #002d5a;
-        }
-        input[type="file"] {
-            display: none;
-        }
+.logo {
+    display: none; /* Hide any old logos still present */
+
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 80px;
+    height: auto;
+}
+
+
+
+
+
+
+
+
     </style>
-</head>
-<body>
-    <div class="container">
-        <h2> Alumni Profile Page</h2>
-        <div class="profile-header">
-            <label for="profilePic">
-                <img src="pro.jpg" alt="Profile Picture" class="profile-pic" id="profilePreview">
-                <span class="profile-pic-label">Change Photo</span>
-            </label>
-            <div class="user-info">
-                <h3 id="userName"></h3>
-                <p id="userBatch"></p>
-            </div>
-        </div>
-        
-        <form action="profile_update.php" method="post" enctype="multipart/form-data">
-            <input type="file" id="profilePic" name="profilePic" accept="image/*" onchange="previewImage(event)">
-            
-            <div class="form-group">
-                <label for="skills">Skills:</label>
-                <input type="text" id="skills" name="skills" placeholder="Add your skills" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="achievements">Achievements:</label>
-                <textarea id="achievements" name="achievements" rows="3" placeholder="Add your achievements" required></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea id="description" name="description" rows="4" placeholder="Tell us about yourself" required></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="job">Post Job Opportunity:</label>
-                <textarea id="job" name="job" rows="3" placeholder="Share job opportunities here"></textarea>
-            </div>
-            
-            <button type="submit">Update Profile</button>
-        </form>
-    </div>
-
-    <script>
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                const output = document.getElementById('profilePreview');
-                output.src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-        // Fetch user details from session via AJAX
-        fetch("get_user_details.php")
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('userName').textContent = data.name;
-                document.getElementById('userBatch').textContent = "Batch: " + data.batch;
-            })
-            .catch(error => console.log("Error fetching user details:", error));
-    </script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
-      <script src="pro.js"></script>
 </body>
 </html>
