@@ -62,13 +62,7 @@
         <img class="mmi1" src="{{ url_for('static', filename='images/int4.jpg') }}" alt="College Banner">
     </div>-->
     <div class="upp">
-    <div class="logo-container">
-            <img src="{{ url_for('static', filename='images/allu.png') }}" alt="">
-        
-        <div class="logo-text">
-        
-            </div>
-    </div>
+    
    
     <div class="hero-section">
         <h1 class="welli">Welcome to the College Alumni Portal</h1>
@@ -78,6 +72,9 @@
     </div>
     </div>
     <nav>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/allu.png') }}" alt="">
+    </div>
         <ul>
             <li><a href="{{ url_for('profile') }}" class="restricted">Profile</a></li>
             <li><a href="#events" class="restricted">Events</a></li>
@@ -387,6 +384,7 @@
         justify-content: center; /* Centers horizontally */
             align-items: center; /* Centers vertically */
             width: 1200px;
+            margin-top: 120px;
     }
     .one{
         flex-direction: column;
@@ -1003,7 +1001,8 @@ margin: 0 auto;
 
     <footer class="footer">
         <div class="footer-left">
-            <img src="your-logo.png" alt="NITP Logo" class="footer-logo">
+            <img  class="fooo"src="{{ url_for('static', filename='images/allu.png') }}" alt="">
+
             <p>One-stop portal for alumni of the National Institute of Technology, Patna, Bihar.</p>
         </div>
         
@@ -1042,6 +1041,7 @@ margin: 0 auto;
         &copy; 2025 NITP, All Rights Reserved. Designed & Developed by <a href="#" style="color: #00aaff; text-decoration: none;">Electrical Engineers of NIT Patna.</a>
     </div>
 
+   
 </body>
 </html>
 

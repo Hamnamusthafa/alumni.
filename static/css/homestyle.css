@@ -2,8 +2,16 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: rgb(149, 192, 192);
+    background-color: rgb(205, 229, 229);
 }
+
+
+
+
+.fooo{
+    width: 80px;
+}
+
 
 
 .header-image{
@@ -184,7 +192,8 @@ color: white;
 padding: 15px;
 text-align: center;
 z-index: 1000; /* Ensures it stays above other elements */
-
+display: flex;
+gap: 210px;
    
 }
 
@@ -496,16 +505,17 @@ body {
 
 .logo-container {
     position: relative; /* Change to relative to avoid absolute stacking */
-    top: 20px; /* Adjust spacing as needed */
+    top: 10px; /* Adjust spacing as needed */
     left: 20px; /* Adjust positioning */
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: -10px;
 }
 
 .logo-container img {
-    width: 100px; /* Adjust size */
+    width: 80px; /* Adjust size */
     height: auto;
     display: block;
 }
