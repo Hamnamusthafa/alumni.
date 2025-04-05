@@ -520,7 +520,42 @@ border-top: 1px solid rgba(255, 255, 255, 0.2);
     
 
 
-    </style>
+.update-btn{
+    margin: 10px auto; /* Centers it horizontally */
+    margin-top: 90px;
+    background: #2c9feb;
+    background-image: -webkit-linear-gradient(top, #2c9feb, #010c12);
+    background-image: -moz-linear-gradient(top, #2c9feb, #010c12);
+    background-image: -ms-linear-gradient(top, #2c9feb, #010c12);
+    background-image: -o-linear-gradient(top, #2c9feb, #010c12);
+    background-image: linear-gradient(to bottom, #2c9feb, #010c12);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Georgia;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    margin-top: 90px;
+    }
+    
+    .update-btn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+    }
+
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+
 
 
 

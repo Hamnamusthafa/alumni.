@@ -3,80 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Opportunities</title>
-    <link rel="stylesheet" href="job.css">
-    <script src="script.js" defer></script>
+    <title>Available Jobs - Alumni Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jobs.css') }}">
 </head>
 <body>
-    <header>
-        <h1>Job Opportunities</h1>
-        <input type="text" id="jobSearch" placeholder="Search for jobs..." onkeyup="searchJobs()">
-    </header>
-    <main>
-        <div class="job-list">
-            <div class="job">
-                <h2>Software Engineer</h2>
-                <p><strong>Company:</strong> TechCorp</p>
-                <p><strong>Location:</strong> Remote</p>
-                <p><strong>Type:</strong> Full-time</p>
-                <p><strong>Description:</strong> Develop and maintain scalable applications.</p>
-                <button>Apply</button>
-            </div>
-
-            <div class="job">
-                <h2>Marketing Manager</h2>
-                <p><strong>Company:</strong> InnovateX</p>
-                <p><strong>Location:</strong> Mumbai</p>
-                <p><strong>Type:</strong> Full-time</p>
-                <p><strong>Description:</strong> Lead digital marketing campaigns.</p>
-                <button>Apply</button>
-            </div>
-
-            <div class="job">
-                <h2>Data Analyst</h2>
-                <p><strong>Company:</strong> FinServe</p>
-                <p><strong>Location:</strong> Delhi</p>
-                <p><strong>Type:</strong> Contract</p>
-                <p><strong>Description:</strong> Analyze financial data for insights.</p>
-                <button>Apply</button>
-            </div>
-
-            <div class="job">
-                <h2>HR Executive</h2>
-                <p><strong>Company:</strong> PeopleFirst</p>
-                <p><strong>Location:</strong> Bangalore</p>
-                <p><strong>Type:</strong> Internship</p>
-                <p><strong>Description:</strong> Assist with recruitment and training.</p>
-                <button>Apply</button>
-            </div>
-
-            <div class="job">
-                <h2>Graphic Designer</h2>
-                <p><strong>Company:</strong> Creative Minds</p>
-                <p><strong>Location:</strong> Chennai</p>
-                <p><strong>Type:</strong> Part-time</p>
-                <p><strong>Description:</strong> Design engaging marketing visuals.</p>
-                <button>Apply</button>
-            </div>
-
-            <div class="job">
-                <h2>Project Manager</h2>
-                <p><strong>Company:</strong> BuildRight</p>
-                <p><strong>Location:</strong> Hyderabad</p>
-                <p><strong>Type:</strong> Full-time</p>
-                <p><strong>Description:</strong> Oversee project timelines and deliverables.</p>
-                <button>Apply</button>
-            </div>
-
-            <div class="job">
-                <h2>Cybersecurity Analyst</h2>
-                <p><strong>Company:</strong> SecureNet</p>
-                <p><strong>Location:</strong> Remote</p>
-                <p><strong>Type:</strong> Full-time</p>
-                <p><strong>Description:</strong> Monitor and secure network systems.</p>
-                <button>Apply</button>
-            </div>
+    <!-- ========== NAVBAR ========== -->
+    <header class="navbar">
+       
+     
+        <nav>
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/allu.png') }}" alt="">
         </div>
-    </main>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('profile_page') }}">Profile</a></li>
+                <li><a href="/messages">Messages</a></li>
+                <li><a href="#events" class="restricted">Events</a></li>
+                <li><a href="#jobs" class="restricted">Jobs</a></li>
+                <li><a href="#internships" class="restricted">Internships</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="dashboard-section">
+        <h2>Available Jobs</h2>
+        <div id="job-list" class="job-list"></div>  <!-- ✅ Ensure this exists -->
+    </section>
+    
+    <footer class="footer">
+        <div class="footer-left">
+            <img src="{{ url_for('static', filename='images/allu.png') }}" alt=""  class="footer-logo">
+    
+            <p class="pp">One-stop portal for alumni of the National Institute of Technology, Patna, Bihar.</p>
+        </div>
+        
+        <div>
+            <h3>Useful Links</h3>
+            <ul>
+                <li><a href="#">NIT Patna</a></li>
+                <li><a href="#">NITP History</a></li>
+                <li><a href="#">Search Jobs</a></li>
+                <li><a href="#">Look for Internships</a></li>
+                <li><a href="#">Web Team</a></li>
+                <li><a href="#">Admin Portal</a></li>
+            </ul>
+        </div>
+    
+        <div>
+            <h3>Must Check</h3>
+            <ul>
+                <li><a href="#">Event Gallery</a></li>
+                <li><a href="#">Notable Alumni</a></li>
+                <li><a href="#">Upcoming Events</a></li>
+                <li><a href="#">Success Stories</a></li>
+                <li><a href="#">Experiences</a></li>
+            </ul>
+        </div>
+    
+        <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>NIT Patna, Ashok Rajpath, Patna, Bihar-800005, India</p>
+            <p>Ph: <a href="tel:+9106122371715">+91-0612 237 1715</a> / <a href="tel:+9106122372715">237 2715</a></p>
+            <p>Mail: <a href="mailto:alumni@nitp.ac.in">alumni@nitp.ac.in</a></p>
+        </div>
+    </footer>
+    
+    <div class="footer-bottom">
+        &copy; 2025 NITP, All Rights Reserved. Designed & Developed by <a href="#" style="color: #00aaff; text-decoration: none;">Electrical Engineers of NIT Patna.</a>
+    </div>
+    <style>
+        .job-listings{
+            margin-top: 90px;
+        }
+    .h2{
+        color: #010c12;
+    }
+    .chat-input{
+    display: flex;
+    flex-direction: column;}
+    /* Center the chat container */
+    .dashboard_section {
+    width: 50%;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), 
+                -5px -5px 15px rgba(0, 0, 0, 0.2);
+    
+    /* Centering the container */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) ;
+    
+    }
+    
+    
+    /* Chat messages box */
+    #chat-box {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    margin-bottom: 15px;
+    }
+    
+    /* Sent & Received Messages */
+    .message {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    width: fit-content;
+    max-width: 70%;
+    }
+    
+    .sent {
+    background: #007bff;
+    color: white;
+    align-self: flex-end;
+    margin-left: auto;
+    }
+    
+    .received {
+    background: #e9ecef;
+    color: black;
+    align-self: flex-start;
+    margin-right: auto;
+    }
+    
+    /* Timestamp styling */
+    .message span {
+    display: block;
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 5px;
+    text-align: right;
+    }
+    
+    /* Chat input section */
+    .chat-input {
+    display: flex;
+    gap: 10px;
+    }
+    
+    .chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    
+    
+    }
+    body{
+        background-color: rgb(205, 229, 229);
+    
+    }
+    ul {
+    list-style-type: square;
+    padding-left: 20px;
+    }
+    
+    .pp{
+    color: white;
+    }
+    
+    
+    nav {
+    background-color: rgb(20, 9, 111);
+    padding: 15px;
+    text-align: center;
+    padding-top: -90px;
+    
+    position: fixed; /* Fixes the navbar */
+    top: 0; /* Sticks it to the top */
+    left: 0;
+    width: 100%; /* Full width */
+    background: #7d6868; /* Background color */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    z-index: 1000; /* Ensures it stays above other elements */
+    
+    display: flex;
+    gap: 120px;
+    }
+    
+    nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    }
+    
+    nav ul li {
+    margin: 0 15px;
+    position: relative;
+    }
+    
+    /* Basic styling for navbar links */
+    nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: inline-block;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    }
+    
+    /* Hover Effect: Change Text Color & Background */
+    nav ul li a:hover {
+    color: #007bff;
+    background-color: white;
+    border-radius: 5px;
+    }
+    
+    /* Hover Effect: Underline Animation */
+    nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+    }
+    
+    nav ul li a:hover::after {
+    transform: scaleX(1);
+    }
+    .update-btn{
+    margin: 10px auto; /* Centers it horizontally */
+    margin-top: 90px;
+    background: #2c9feb;
+    background-image: -webkit-linear-gradient(top, #2c9feb, #010c12);
+    background-image: -moz-linear-gradient(top, #2c9feb, #010c12);
+    background-image: -ms-linear-gradient(top, #2c9feb, #010c12);
+    background-image: -o-linear-gradient(top, #2c9feb, #010c12);
+    background-image: linear-gradient(to bottom, #2c9feb, #010c12);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Georgia;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    margin-top: 90px;
+    }
+    
+    .update-btn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+    }
+    
+    .footer {
+    background-color: #0a0a0a;
+    padding: 10px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 700px;
+    }
+    .footer-logo {
+    max-width: 100px;
+    }
+    .footer-left {
+    max-width: 300px;
+    }
+    .footer h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #00aaff;
+    border-left: 3px solid #00aaff;
+    padding-left: 10px;
+    }
+    .footer ul {
+    list-style: none;
+    padding: 0;
+    }
+    .footer ul li {
+    margin-bottom: 10px;
+    }
+    .footer ul li a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+    }
+    .footer ul li a:hover {
+    color: #00aaff;
+    }
+    .footer-contact p {
+    margin: 5px 0;
+    }
+    .footer-contact a {
+    color: #00aaff;
+    text-decoration: none;
+    font-weight: bold;
+    }
+    .footer-bottom {
+    text-align: center;
+    padding: 15px;
+    background: black;
+    font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .aboutu {
+    max-width: 100%; /* Ensures it doesn’t exceed the parent div */
+    height: auto; /* Maintains aspect ratio */
+    margin-left: 370px;
+    }
+    .aboutuu{
+    width: 290px;
+    }
+    
+    
+    .logo-container {
+    position: relative; /* Change to relative to avoid absolute stacking */
+    top: 10px; /* Adjust spacing as needed */
+    left: 20px; /* Adjust positioning */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -10px;
+    }
+    
+    .logo-container img {
+    width: 80px; /* Adjust size */
+    height: auto;
+    display: block;
+    }
+    
+    .logo {
+    display: none; /* Hide any old logos still present */
+    
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 80px;
+    height: auto;
+    }
+    
+    
+    
+    
+    </style>
+
+
+
+
+
+    <script src="{{ url_for('static', filename='js/jobs.js') }}"></script>
 </body>
 </html>
