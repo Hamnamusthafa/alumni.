@@ -28,6 +28,8 @@ body {
     height: 100vh;
     z-index: -1;
     overflow: hidden;
+    filter: brightness(50%); /* Decrease brightness */
+
     
     
 }

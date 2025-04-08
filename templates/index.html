@@ -578,56 +578,63 @@
         <div class="alumni-track">
             <div class="alumni-card">
                 
-                <img class="alumniy"src="{{ url_for('static', filename='images/alumni1.png') }}">
+                <img class="alumniy"src="{{ url_for('static', filename='images/alumni1.1.jpg') }}">
 
                 <h3>John Doe</h3>
                 <p>Software Engineer, Google
                 </p>
             </div>
             <div class="alumni-card">
-                <img class="alumniy"src="{{ url_for('static', filename='images/alumni2.png') }}">
+                <img class="alumniy"src="{{ url_for('static', filename='images/alumni5.jpg') }}">
 
                 <h3>Jane Smith</h3>
                 <p>Data Scientist, Amazon</p>
             </div>
             <div class="alumni-card">
-                <img src="alumni3.jpg" alt="Alumni 3">
+                <img class="alumniy"src="{{ url_for('static', filename='images/alumninew.jpg') }}">
+
                 <h3>Michael Brown</h3>
                 <p>Product Manager, Microsoft</p>
             </div>
             <div class="alumni-card">
-                <img src="alumni4.jpg" alt="Alumni 4">
+                <img class="alumniy"src="{{ url_for('static', filename='images/alumni4.jpg') }}">
+
                 <h3>Emily White</h3>
                 <p>CEO, Startup X</p>
             </div>
             <div class="alumni-card">
-                <img src="alumni5.jpg" alt="Alumni 5">
+                <img class="alumniy"src="{{ url_for('static', filename='images/alumni2.2.jpg') }}">
+
                 <h3>David Lee</h3>
                 <p>UX Designer, Apple</p>
             </div>
             <div class="alumni-card">
-                <img src="alumni6.jpg" alt="Alumni 6">
+                <img class="alumniy"src="{{ url_for('static', filename='images/alumni6.jpg') }}">
+
                 <h3>Sarah Johnson</h3>
                 <p>AI Researcher, OpenAI</p>
             </div>
             <div class="alumni-card">
-                <img src="alumni7.jpg" alt="Alumni 7">
+                <img class="alumniy"src="{{ url_for('static', filename='images/alumninew1.jpg') }}">
+
                 <h3>Robert Wilson</h3>
                 <p>Financial Analyst, JPMorgan</p>
             </div>
             <!-- Duplicate for seamless scrolling -->
             <div class="alumni-card">
-                <img src="{{ url_for('static', filename='images/alumni1.png') }}">
+                <img src="{{ url_for('static', filename='images/alumni1.1.jpg') }}">
                 <h3>John Doe</h3>
                 <p>Software Engineer, Google</p>
             </div>
             <div class="alumni-card">
-                <img src="alumni2.jpg" alt="Alumni 2">
+                <img class="alumniy"src="{{ url_for('static', filename='images/alumni5.jpg') }}">
+
                 <h3>Jane Smith</h3>
                 <p>Data Scientist, Amazon</p>
             </div>
             <div class="alumni-card">
-                <img src="alumni3.jpg" alt="Alumni 3">
+                <img class="alumniy"src="{{ url_for('static', filename='images/alumninew.jpg') }}">
+
                 <h3>Michael Brown</h3>
                 <p>Product Manager, Microsoft</p>
             </div>
@@ -716,6 +723,19 @@ track.addEventListener('mouseleave', function() {
 
 
     <style>
+
+
+
+
+.scroll-wrapper::before,
+.scroll-wrapper::after {
+    content: '';
+    flex: 0 0 20px; /* Acts as padding on both sides */
+}
+
+
+
+
       /*  body {
             background-color: lightblue;
             display: flex;
@@ -767,18 +787,38 @@ margin: 0 auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
             height: 400px;
-            padding: 20px;
             white-space: nowrap;
 
             justify-content: center;
-        }
+
+
+            
+    padding: 0; /* Remove padding */
+
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    height: 400px;
+    padding: 0;
+    white-space: nowrap;
+}
+
+
+
+
+        
         .scroll-wrapper::-webkit-scrollbar {
             display: none;
         }
         .card {
-            min-width: 300px;
-            max-width: 300px;
-            background: white;
+            min-width: 200px;
+            max-width: 200px;
+            background: rgb(232, 220, 229);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -787,6 +827,9 @@ margin: 0 auto;
             overflow: hidden;
             text-align: justify;
             white-space: normal;
+
+            margin: 0 10px; /* Add spacing between cards */
+
         }
         .card .name {
             font-weight: bold;
@@ -822,8 +865,7 @@ margin: 0 auto;
 
 
     </style>
-</head>
-<body>
+
     <section>
         <div class="main">
         <div class="testimonial">
