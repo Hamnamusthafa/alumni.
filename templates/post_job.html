@@ -11,6 +11,28 @@
         <h1>Post a Job</h1>
     </header>
 
+
+    <nav>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/allu.png') }}" alt="">
+    </div>
+        <ul>
+            <li><a href="{{ url_for('profile') }}" class="restricted">home</a></li>
+            <li><a href="{{ url_for('profile_alumni') }}" class="active">Profile</a></li>
+            <li><a href="{{ url_for('post_job') }}" class="post-job-btn">Post a Job</a></li>
+
+            <li><a href="#events" class="restricted">Events</a></li>
+            <li><a href="#jobs" class="restricted">Jobs</a></li>
+            <li><a href="#internships" class="restricted">Internships</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>            
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+
+        </ul>
+    </nav>
+
+
+
+
     <div class="container">
         <form id="postJobForm">
             <label for="title">Job Title</label>
@@ -28,7 +50,7 @@
             <label for="skills_required">Skills Required (comma-separated)</label>
             <input type="text" id="skills_required" name="skills_required" required>
         
-            <button type="submit" class="btn-primary">Post Job</button>
+            <button class="update-btn" type="submit" class="btn-primary">Post Job</button>
         </form>
         
         
@@ -79,11 +101,65 @@
         &copy; 2025 NITP, All Rights Reserved. Designed & Developed by <a href="#" style="color: #00aaff; text-decoration: none;">Electrical Engineers of NIT Patna.</a>
     </div>
 <style>
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form textarea {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.hidden {
+  display: none;
+}
+
+
+button.update-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+}
+
+button.update-btn:hover {
+  background-color: #0056b3;
+}
+
+
+
 .chat-input{
     display: flex;
     flex-direction: column;}
     /* Center the chat container */
-.messages-section {
+.container{
     width: 50%;
     max-width: 600px;
     background: white;
@@ -97,6 +173,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) ;
+   
    
 }
 .chat-container{
